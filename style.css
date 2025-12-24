@@ -1,0 +1,26 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+}
+
+:root{
+    --bs-dark-primary: rgb(56, 56, 63);
+}
+
+body{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--bs-dark-primary);
+}
+
+.content{
+    color: #eee;
+}
+
+li{
+    font-size: 40px;
+    list-style: none;
+}
