@@ -16,13 +16,26 @@ body{
     background-color: var(--bs-dark-primary);
 }
 
-textarea{
-    width: 80%;
-    height: 400px;
-    background-color: transparent;
-    border: none;
-    outline: none;
+#content{
+    width: 90%;
+}
 
-    color: #eee;
-    font-size: 50px;
+#words-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+
+    /* optional: if you’re still limiting to 3 rows */
+    max-height: calc(3 * 60px + 6 * 12px);
+    overflow: hidden;
+}
+
+.word {
+    display: inline-flex;      /* 👈 content-based sizing */
+    flex: 0 0 auto;     
+    font-size: 50px;   
+
+    color: #aaa;
+
+    white-space: nowrap; 
 }
