@@ -1,23 +1,7 @@
-const palavras = {
+{
     "pt-br":["teste", "palavra", "grande", "palavrao", "alias", "nihil",
         "Lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipisicing", "elit", "Magnam", "atque", "eos", "ad", "assumenda", "maxime", "maiores", 
         "molestiae", "molestias", "quibusdam", "Eaque", "obcaecati", "nesciunt", "molestiae", "beatae", "id", "hic", "labore",
         "inventore", "Mollitia", "dolore", "expedita", "aliquid", "nobis", "fugit", "facere", "natus", "vel", 
         "iste", "adipisci", "tempora", "deleniti", "suscipit", "neque"]
 }
-
-document.addEventListener('DOMContentLoaded', () => {   
-    input = document.getElementById('input');
-
-    window.addEventListener('focus', () => {
-        window.addEventListener('keyup', keyAction)
-    })
-    
-    window.addEventListener('blur', () => {
-        window.removeEventListener('keyup', keyAction);
-    })
-    
-    function keyAction(key){
-        
-    }
-})
