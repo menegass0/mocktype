@@ -6,27 +6,13 @@ const palavras = {
         "iste", "adipisci", "tempora", "deleniti", "suscipit", "neque"]
 }
 
-document.addEventListener('DOMContentLoaded', () => { 
-    const wordsBox = document.getElementById('words-box');
+const wordsBox = document.getElementById('words-box');
+const content = document.getElementById('content');
+let typingWord = '';
 
-    for (let index = 0; index < 20; index++) {
-        const randomItem = palavras["pt-br"][Math.floor(Math.random() * palavras["pt-br"].length)];
-
-        const wordElement = document.createElement('div');
-        wordElement.className = 'word';
-
-        const letters = randomItem.split('');
-
-        letters.forEach(letter => {
-            const letterElement = document.createElement('span');
-            letterElement.textContent = letter;
-            wordElement.appendChild(letterElement);
-        });
-
-        wordsBox.appendChild(wordElement);
-    }
-
-
+document.addEventListener('DOMContentLoaded', () => {
+    generateNewText();
+    
     window.addEventListener('focus', () => {
         window.addEventListener('keyup', keyAction)
     })
@@ -36,6 +22,55 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     
     function keyAction(key){
-        
+        console.log(key);
+
+        if(key.key.length === 1){
+            typingWord += key.key;
+        }   else if(key.key === 'Backspace'){
+            typingWord = typingWord.slice(0, -1);
+        }
+
+        checkWord();
+
+        console.log(typingWord)
     }
+
+    function checkWord(){
+        const activeWord = document.querySelector('.word.active');
+        const letters = activeWord.querySelectorAll('letter');
+
+        letters.forEach((letter, index) => {
+            if (letter.textContent === typingWord[index] && typingWord[index] !== undefined) {
+                letter.className = 'correct';
+            } else if (letter.textContent !== typingWord[index] && typingWord[index] !== undefined) {
+                letter.className = 'incorrect';
+            }
+            else{
+                letter.className = '';
+            }
+        });
+    }
+
+
 })
+
+function generateNewText() {
+    wordsBox.innerHTML = '';
+
+    for (let index = 0; index < 80; index++) {
+        const randomItem = palavras["pt-br"][Math.floor(Math.random() * palavras["pt-br"].length)];
+
+        const wordElement = document.createElement('div');
+        wordElement.className = index == 0 ? 'word active' : 'word';
+
+        const letters = randomItem.split('');
+
+        letters.forEach(letter => {
+            const letterElement = document.createElement('letter');
+            letterElement.textContent = letter;
+            wordElement.appendChild(letterElement);
+        });
+
+        wordsBox.appendChild(wordElement);
+    }
+}
