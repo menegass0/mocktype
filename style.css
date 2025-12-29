@@ -2,6 +2,8 @@
     --font: "Roboto Mono", "Roboto Mono", "Vazirmatn", monospace;
     --bs-dark-primary: rgb(56, 56, 63);
     --font-color: #747474;
+    --font-danger: #fd584c;
+    --font-danger-extra: #f7958e;
 }
 
 *{
@@ -41,17 +43,28 @@ body{
     flex: 0 0 auto;     
     font-size: 40px;   
 
-    color: var(--font-color);
-
     white-space: nowrap; 
 }
 
+letter{
+    color: var(--font-color);
+}
+
 letter.correct {
-    color: #bbbbbb;
+    color: #bbbbbb !important;
 }
 
 letter.incorrect {
-    color: #fd584c;
+    color: var(--font-danger);
+}
+
+.word.incorrect{
+    color: var(--font-danger);
+    text-decoration: underline;
+}
+
+.extra{
+    color: var(--font-danger-extra);
 }
 
 #refresh-btn {

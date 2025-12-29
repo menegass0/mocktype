@@ -24,10 +24,31 @@ document.addEventListener('DOMContentLoaded', () => {
     function keyAction(key){
         console.log(key);
 
+        if(key.key === " "){
+            nextWord();
+            return;
+        }
+
+        const activeWord = document.querySelector('.word.active');
+        const letters = activeWord.querySelectorAll('letter');
+
         if(key.key.length === 1){
-            typingWord += key.key;
-        }   else if(key.key === 'Backspace'){
+            typingWord += key.key;''
+
+            if(typingWord.length > letters.length){
+                const extraLetter = document.createElement('span');
+                extraLetter.className = 'extra';
+                extraLetter.innerText = key.key;
+
+                activeWord.appendChild(extraLetter);
+            } 
+
+        }   else if(key.key === 'Backspace'){  
             typingWord = typingWord.slice(0, -1);
+
+            if(typingWord.length >= letters.length ){
+                activeWord.lastChild.remove();
+            }
         }
 
         checkWord();
@@ -39,19 +60,43 @@ document.addEventListener('DOMContentLoaded', () => {
         const activeWord = document.querySelector('.word.active');
         const letters = activeWord.querySelectorAll('letter');
 
+        let wordCorrect = true;
+
         letters.forEach((letter, index) => {
             if (letter.textContent === typingWord[index] && typingWord[index] !== undefined) {
                 letter.className = 'correct';
             } else if (letter.textContent !== typingWord[index] && typingWord[index] !== undefined) {
                 letter.className = 'incorrect';
+                wordCorrect = false;
             }
             else{
                 letter.className = '';
             }
         });
+
+        if(!wordCorrect || typingWord.length > letters.length){
+            activeWord.classList.add('incorrect')
+        }else{
+            activeWord.classList.remove('incorrect')
+        }
     }
 
+    function nextWord(){
+        const activeWord = document.querySelector('.word.active');
 
+        const index = parseInt(activeWord.dataset.index);
+
+        const words = document.querySelectorAll('.word');
+
+        console.log(words[index+1]);
+
+        words[index].classList.add('typed');
+        words[index].classList.remove('active');
+
+        typingWord = '';
+
+        words[index+1].classList.add('active');
+    }
 })
 
 function generateNewText() {
@@ -62,6 +107,7 @@ function generateNewText() {
 
         const wordElement = document.createElement('div');
         wordElement.className = index == 0 ? 'word active' : 'word';
+        wordElement.dataset.index = index;
 
         const letters = randomItem.split('');
 
@@ -73,4 +119,6 @@ function generateNewText() {
 
         wordsBox.appendChild(wordElement);
     }
+
+    typingWord = '';
 }
